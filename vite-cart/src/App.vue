@@ -22,69 +22,25 @@
       <ItemList :itemList="itemList" @add="addToCart" />
       <hr>
 
-      <section class="cart">
-        <h2>購物車</h2>
-        <table class="table cart-item-table">
-          <thead>
-            <tr>
-              <th scope="col">項目</th>
-              <th scope="col">數量</th>
-              <th scope="col">單價</th>
-              <th scope="col">小計</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="c in cartList"
-              :key="c.id"
-            >
-              <td>{{ c.name }}</td>
-              <td>
-                <input
-                  type="number"
-                  min="1"
-                  class="quantity"
-                  :value="c.qty">
-                </td>
-              <td>${{ c.price }}</td>
-              <td>${{ c.price * c.qty }}</td>
-              <td><button
-                  @click="removeFromCart(c.id)"
-                  :data-id="c.id"
-                  class="remove-item-btn btn btn-danger btn-sm"
-                >
-                  <i class="fas fa-trash-alt"></i></button>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="2"></td>
-              <td>總價</td>
-              <td><span class="total-price">${{ totalPrice }}</span></td>
-              <td></td>
-            </tr>
-          </tfoot>
-        </table>
-        <button 
-          @click="cleanCart"
-          class="btn btn-lg btn-success empty-cart"><i class="fas fa-baby-carriage"></i> 清空購物車</button>
-      </section>
+      <CartList :cartList="cartList"
+        @remove="removeFromCart"
+        @remove-all="cleanCart"
+        />
     </section>
   </main>
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import ItemList from './components/item.vue';
+import CartList from './components/cart.vue';
 
 export default {
   components: {
-    ItemList
+    ItemList,
+    CartList
   },
   setup() {
-    
     // 商品列表
     const itemList = ref([]);
 
@@ -118,21 +74,13 @@ export default {
       cartList.value.length = 0
     };
 
-    // 計算總價
-    const totalPrice = computed(() => Math.round(cartList.value.reduce((sum, item) => sum + item.price * item.qty, 0) * 100) / 100);
-
     return {
       itemList,
       cartList,
       addToCart,
       removeFromCart,
       cleanCart,
-      totalPrice
     }
   }
 }
 </script>
-
-<style>
-
-</style>
