@@ -92,7 +92,9 @@
             </tr>
           </tfoot>
         </table>
-        <button class="btn btn-lg btn-success empty-cart"><i class="fas fa-baby-carriage"></i> 清空購物車</button>
+        <button 
+          @click="cleanCart"
+          class="btn btn-lg btn-success empty-cart"><i class="fas fa-baby-carriage"></i> 清空購物車</button>
       </section>
     </section>
   </main>
