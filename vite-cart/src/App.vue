@@ -87,7 +87,7 @@
             <tr>
               <td colspan="2"></td>
               <td>總價</td>
-              <td><span class="total-price">$0</span></td>
+              <td><span class="total-price">${{ totalPrice }}</span></td>
               <td></td>
             </tr>
           </tfoot>
@@ -138,12 +138,16 @@ export default {
       cartList.value.length = 0
     };
 
+    // 計算總價
+    const totalPrice = computed(() => Math.round(cartList.value.reduce((sum, item) => sum + item.price * item.qty, 0) * 100) / 100);
+
     return {
       itemList,
       cartList,
       addToCart,
       removeFromCart,
-      cleanCart
+      cleanCart,
+      totalPrice
     }
   }
 }
