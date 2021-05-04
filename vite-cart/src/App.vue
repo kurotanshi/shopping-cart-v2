@@ -59,6 +59,13 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+            <td>老大</td>
+            <td><input type="number" class="quantity" min="1" value="1"></td>
+            <td>$20</td>
+            <td>$20</td>
+            <td><button data-id="624946E" class="remove-item-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>
           </tbody>
           <tfoot>
             <tr>
