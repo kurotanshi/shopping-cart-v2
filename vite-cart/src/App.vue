@@ -19,68 +19,31 @@
     </header>
 
     <section class="container mt-4">
-      <div class="items row">
-        <div class="col-sm-2">
-          <div class="card" data-product-id="624946E">
-            <img src="images/cat001.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title fs-6 fw-light">老大</h5>
-              <p class="price">$20</p>
-              <button class="btn btn-sm btn-warning fw-light"><i class="fas fa-cat"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="card" data-product-id="044464F">
-            <img src="images/cat002.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title fs-6 fw-light">貝貝</h5>
-              <p class="price">$15</p>
-              <button class="btn btn-sm btn-warning fw-light"><i class="fas fa-cat"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="card" data-product-id="A6245B4">
-            <img src="images/cat003.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title fs-6 fw-light">老虎</h5>
-              <p class="price">$10</p>
-              <button class="btn btn-sm btn-warning fw-light"><i class="fas fa-cat"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="card" data-product-id="09DC594">
-            <img src="images/cat004.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title fs-6 fw-light">胖胖</h5>
-              <p class="price">$8.5</p>
-              <button class="btn btn-sm btn-warning fw-light"><i class="fas fa-cat"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="card" data-product-id="AAE759E">
-            <img src="images/cat005.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title fs-6 fw-light">小花</h5>
-              <p class="price">$9.99</p>
-              <button class="btn btn-sm btn-warning fw-light"><i class="fas fa-cat"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-2">
-          <div class="card" data-product-id="D014739">
-            <img src="images/cat006.jpg" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title fs-6 fw-light">黑臉</h5>
-              <p class="price">$12.5</p>
-              <button class="btn btn-sm btn-warning fw-light"><i class="fas fa-cat"></i></button>
-            </div>
+    <div class="items row">
+      <div
+        class="col-sm-2"
+        v-for="item in itemList"
+        :key="item.id"
+      >
+        <div
+          :data-product-id="item.id"
+          class="card"
+        >
+          <img
+            :src="`./images/${item.cover}`"
+            :alt="item.name"
+            class="card-img-top"
+          >
+          <div class="card-body">
+            <h5 class="card-title fs-6 fw-light">{{ item.name }}</h5>
+            <p class="price">${{ item.price }}</p>
+            <button
+              class="btn btn-sm btn-warning fw-light"
+            ><i class="fas fa-cat"></i></button>
           </div>
         </div>
       </div>
+    </div>
       <hr>
 
       <section class="cart">
@@ -113,7 +76,21 @@
 </template>
 
 <script>
+import { ref } from 'vue';
 
+export default {
+  setup() {
+    const itemList = ref([]);
+    
+    fetch('./item.json')
+      .then(res => res.json())
+      .then(d => itemList.value = itemList.value.concat(d));
+
+    return {
+      itemList
+    }
+  }
+}
 </script>
 
 <style>
